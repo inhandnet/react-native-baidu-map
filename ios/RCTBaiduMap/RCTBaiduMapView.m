@@ -15,12 +15,12 @@
 }
 
 -(void)setZoom:(float)zoom {
-    NSLog(@"setZoom");
+//    NSLog(@"setZoom");
     self.zoomLevel = zoom;
 }
 
 -(void)setCenterLatLng:(NSDictionary *)LatLngObj {
-    NSLog(@"setCenterLatLng");
+//    NSLog(@"setCenterLatLng");
     double lat = [RCTConvert double:LatLngObj[@"lat"]];
     double lng = [RCTConvert double:LatLngObj[@"lng"]];
     CLLocationCoordinate2D point = CLLocationCoordinate2DMake(lat, lng);
@@ -28,7 +28,7 @@
 }
 
 -(void)setMarker:(NSDictionary *)option {
-    NSLog(@"setMarker");
+//    NSLog(@"setMarker");
     if(option != nil) {
         if(_annotation == nil) {
             _annotation = [[ZLPointAnnotation alloc]init];
@@ -40,13 +40,13 @@
     }
 }
 -(void)setPolylines:(NSArray *)points{
-    NSLog(@"setPolylines");
+//    NSLog(@"setPolylines");
     [self removeOverlays:self.overlays];
-    if (points != nil && points.count>0) {
-        double maxLng = 0;
-        double minLng = 0;
-        double maxLat = 0;
-        double minLat = 0;
+    if (points != nil) {
+        double maxLng = 360;
+        double minLng = -360;
+        double maxLat = 360;
+        double minLat =  -360;
         for (NSInteger i = 0; i < points.count; i++)  {
             NSArray * arr = [points objectAtIndex:i];
             NSInteger count = [arr count];
@@ -72,6 +72,7 @@
                 coor.longitude = lng;
                 BMKMapPoint point = BMKMapPointForCoordinate(coor);
                 pointArr[j] = point;
+                
             }
             BMKPolyline* polyline = [BMKPolyline polylineWithPoints:pointArr count:count];
             [self addOverlay:polyline];
@@ -80,32 +81,14 @@
         BMKCoordinateSpan span = BMKCoordinateSpanMake((maxLat - minLat)*11/10, (maxLng - minLng)*11/10);
         BMKCoordinateRegion region = BMKCoordinateRegionMake(center, span);
         [self setRegion:region animated:YES];
-//        BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(maxLat,maxLng));
-//        BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(minLat,minLng));
-//        CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
-//        NSArray *zoomLevelArr = [[NSArray alloc]initWithObjects:@"2000000", @"1000000", @"500000", @"200000", @"100000", @"50000", @"25000", @"20000", @"10000", @"5000", @"2000", @"1000", @"500", @"200", @"100", @"50", @"20", @"10", @"5", nil];
-//        NSLog(@"%f",distance);
-//        for (int j=0; j<zoomLevelArr.count; j++) {
-//            if (j + 1 < zoomLevelArr.count) {
-//                if (distance < [zoomLevelArr[j] doubleValue] && distance > [zoomLevelArr[j+1] doubleValue] ) {
-//                    NSLog(@"%d",j);
-//                    int level = j+13 >21?21:j+13;
-////                    [self setZoomLevel:15];
-//                    self.zoomLevel = 15;
-//                    break;
-//                }
-//            }
-//        }
-        NSLog(@"-----%f",self.zoomLevel);
     }
 }
 -(void)setMarkers:(NSArray *)markers {
-    NSLog(@"setMarkers");
     NSInteger markersCount = [markers count];
     if(_annotations == nil) {
         _annotations = [[NSMutableArray alloc] init];
     }
-    if(markers != nil && markers.count>0) {
+    if(markers != nil) {
         for (NSInteger i = 0; i < markersCount; i++)  {
             NSDictionary *option = [markers objectAtIndex:i];
             

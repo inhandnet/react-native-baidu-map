@@ -43,10 +43,10 @@
 //    NSLog(@"setPolylines");
     [self removeOverlays:self.overlays];
     if (points != nil) {
-        double maxLng = 360;
-        double minLng = -360;
-        double maxLat = 360;
-        double minLat =  -360;
+        double maxLng = -360;
+        double minLng = 360;
+        double maxLat = -360;
+        double minLat =  360;
         for (NSInteger i = 0; i < points.count; i++)  {
             NSArray * arr = [points objectAtIndex:i];
             NSInteger count = [arr count];

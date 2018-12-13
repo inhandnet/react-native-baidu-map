@@ -15,12 +15,12 @@
 }
 
 -(void)setZoom:(float)zoom {
-//    NSLog(@"setZoom");
+    //    NSLog(@"setZoom");
     self.zoomLevel = zoom;
 }
 
 -(void)setCenterLatLng:(NSDictionary *)LatLngObj {
-//    NSLog(@"setCenterLatLng");
+    //    NSLog(@"setCenterLatLng");
     double lat = [RCTConvert double:LatLngObj[@"lat"]];
     double lng = [RCTConvert double:LatLngObj[@"lng"]];
     CLLocationCoordinate2D point = CLLocationCoordinate2DMake(lat, lng);
@@ -28,7 +28,7 @@
 }
 
 -(void)setMarker:(NSDictionary *)option {
-//    NSLog(@"setMarker");
+    //    NSLog(@"setMarker");
     if(option != nil) {
         if(_annotation == nil) {
             _annotation = [[ZLPointAnnotation alloc]init];
@@ -40,7 +40,7 @@
     }
 }
 -(void)setPolylines:(NSArray *)points{
-//    NSLog(@"setPolylines");
+    //    NSLog(@"setPolylines");
     [self removeOverlays:self.overlays];
     if (points != nil) {
         double maxLng = -360;
@@ -80,7 +80,9 @@
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake((minLat + maxLat) / 2.0, (minLng + maxLng) / 2.0);
         BMKCoordinateSpan span = BMKCoordinateSpanMake((maxLat - minLat)*11/10, (maxLng - minLng)*11/10);
         BMKCoordinateRegion region = BMKCoordinateRegionMake(center, span);
-        [self setRegion:region animated:YES];
+        if (points.count >0) {
+            [self setRegion:region animated:YES];
+        }
     }
 }
 -(void)setMarkers:(NSArray *)markers {
@@ -152,3 +154,4 @@
 
 
 @end
+

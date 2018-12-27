@@ -116,9 +116,11 @@ didSelectAnnotationView:(BMKAnnotationView *)view {
             if (((ZLPointAnnotation *)annotation).extra[@"imageName"] && ![((ZLPointAnnotation *)annotation).extra[@"imageName"] isEqualToString:@""]) {
                 newAnnotationView.image = [UIImage imageNamed:((ZLPointAnnotation *)annotation).extra[@"imageName"]];
             }
+            newAnnotationView.centerOffset = CGPointMake(0, -(newAnnotationView.frame.size.height/2));
+        }else{
+            newAnnotationView.centerOffset = CGPointMake(0, 0);
         }
         newAnnotationView.animatesDrop = YES;
-        newAnnotationView.centerOffset = CGPointMake(0, 0);
         return newAnnotationView;
     }
     return nil;
@@ -133,7 +135,7 @@ didSelectAnnotationView:(BMKAnnotationView *)view {
     }
     return nil;
 }
--(void)mapStatusDidChanged: (BMKMapView *)mapView	 {
+-(void)mapStatusDidChanged: (BMKMapView *)mapView     {
     NSLog(@"mapStatusDidChanged");
     CLLocationCoordinate2D targetGeoPt = [mapView getMapStatus].targetGeoPt;
     NSDictionary* event = @{
@@ -174,3 +176,4 @@ didSelectAnnotationView:(BMKAnnotationView *)view {
     return color;
 }
 @end
+

@@ -111,16 +111,16 @@ didSelectAnnotationView:(BMKAnnotationView *)view {
         BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
         newAnnotationView.pinColor =
         BMKPinAnnotationColorGreen;
-        newAnnotationView.image = [UIImage imageNamed:@"ico_car.png"];
+        newAnnotationView.animatesDrop = NO;
         if (((ZLPointAnnotation *)annotation).extra) {
             if (((ZLPointAnnotation *)annotation).extra[@"imageName"] && ![((ZLPointAnnotation *)annotation).extra[@"imageName"] isEqualToString:@""]) {
                 newAnnotationView.image = [UIImage imageNamed:((ZLPointAnnotation *)annotation).extra[@"imageName"]];
+                newAnnotationView.centerOffset = CGPointMake(0, -(newAnnotationView.frame.size.height/2));
+                return newAnnotationView;
             }
-            newAnnotationView.centerOffset = CGPointMake(0, -(newAnnotationView.frame.size.height/2));
-        }else{
-            newAnnotationView.centerOffset = CGPointMake(0, 0);
         }
-        newAnnotationView.animatesDrop = YES;
+        newAnnotationView.image = [UIImage imageNamed:@"ico_car.png"];
+        newAnnotationView.centerOffset = CGPointMake(0, 0);
         return newAnnotationView;
     }
     return nil;

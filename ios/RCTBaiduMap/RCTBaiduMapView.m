@@ -11,16 +11,16 @@
 @implementation RCTBaiduMapView {
     BMKMapView* _mapView;
     ZLPointAnnotation* _annotation;
-    NSMutableArray* _annotations;
+//    NSMutableArray* _annotations;
 }
 
 -(void)setZoom:(float)zoom {
-    //    NSLog(@"setZoom");
+//    NSLog(@"setZoom");
     self.zoomLevel = zoom;
 }
 
 -(void)setCenterLatLng:(NSDictionary *)LatLngObj {
-    //    NSLog(@"setCenterLatLng");
+//    NSLog(@"setCenterLatLng");
     double lat = [RCTConvert double:LatLngObj[@"lat"]];
     double lng = [RCTConvert double:LatLngObj[@"lng"]];
     CLLocationCoordinate2D point = CLLocationCoordinate2DMake(lat, lng);
@@ -28,7 +28,7 @@
 }
 
 -(void)setMarker:(NSDictionary *)option {
-    //    NSLog(@"setMarker");
+//    NSLog(@"setMarker");
     if(option != nil) {
         if(_annotation == nil) {
             _annotation = [[ZLPointAnnotation alloc]init];
@@ -40,7 +40,7 @@
     }
 }
 -(void)setPolylines:(NSArray *)points{
-    //    NSLog(@"setPolylines");
+//    NSLog(@"setPolylines");
     [self removeOverlays:self.overlays];
     if (points != nil) {
         double maxLng = -360;
@@ -87,43 +87,48 @@
 }
 -(void)setMarkers:(NSArray *)markers {
     NSInteger markersCount = [markers count];
-    if(_annotations == nil) {
-        _annotations = [[NSMutableArray alloc] init];
-    }
+//    if(_annotations == nil) {
+//        _annotations = [[NSMutableArray alloc] init];
+//    }
+    NSMutableArray * annotations = [[NSMutableArray alloc] init];
     if(markers != nil) {
+        [self removeAnnotations: self.annotations];
         for (NSInteger i = 0; i < markersCount; i++)  {
             NSDictionary *option = [markers objectAtIndex:i];
-            
-            ZLPointAnnotation *annotation = nil;
-            if(i < [_annotations count]) {
-                annotation = [_annotations objectAtIndex:i];
-            }
-            if(annotation == nil) {
-                annotation = [[ZLPointAnnotation alloc]init];
-                [self addMarker:annotation option:option];
-                [_annotations addObject:annotation];
-            }
-            else {
-                [self updateMarker:annotation option:option];
-            }
+            ZLPointAnnotation * annotation = [[ZLPointAnnotation alloc]init];
+            [self addMarker:annotation option:option];
+            [annotations addObject:annotation];
+//
+//            ZLPointAnnotation *annotation = nil;
+//            if(i < [_annotations count]) {
+//                annotation = [_annotations objectAtIndex:i];
+//            }
+//            if(annotation == nil) {
+//                annotation = [[ZLPointAnnotation alloc]init];
+//                [self addMarker:annotation option:option];
+//                [_annotations addObject:annotation];
+//            }
+//            else {
+//                [self updateMarker:annotation option:option];
+//            }
+//        }
+//
+//        NSInteger _annotationsCount = [_annotations count];
+//
+//        // NSString *smarkersCount = [NSString stringWithFormat:@"%d", markersCount];
+//        // NSString *sannotationsCount = [NSString stringWithFormat:@"%d", _annotationsCount];
+//        // NSLog(smarkersCount);
+//        // NSLog(sannotationsCount);
+//
+//        if(markersCount < _annotationsCount) {
+//            NSInteger start = _annotationsCount - 1;
+//            for(NSInteger i = start; i >= markersCount; i--) {
+//                ZLPointAnnotation *annotation = [_annotations objectAtIndex:i];
+//                [self removeAnnotation:annotation];
+//                [_annotations removeObject:annotation];
+//            }
         }
-        
-        NSInteger _annotationsCount = [_annotations count];
-        
-        // NSString *smarkersCount = [NSString stringWithFormat:@"%d", markersCount];
-        // NSString *sannotationsCount = [NSString stringWithFormat:@"%d", _annotationsCount];
-        // NSLog(smarkersCount);
-        // NSLog(sannotationsCount);
-        
-        if(markersCount < _annotationsCount) {
-            NSInteger start = _annotationsCount - 1;
-            for(NSInteger i = start; i >= markersCount; i--) {
-                ZLPointAnnotation *annotation = [_annotations objectAtIndex:i];
-                [self removeAnnotation:annotation];
-                [_annotations removeObject:annotation];
-            }
-        }
-        [self showAnnotations:_annotations animated:YES];
+        [self showAnnotations:annotations animated:YES];
     }
 }
 
@@ -154,4 +159,3 @@
 
 
 @end
-

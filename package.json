@@ -1,27 +1,26 @@
 {
-  "_from": "react-native-baidu-map",
+  "_from": "git+https://github.com/inhandnet/react-native-baidu-map.git",
   "_id": "react-native-baidu-map@0.6.0",
   "_inBundle": false,
-  "_integrity": "sha1-y0k3GB6ODNISXTR6W4fKE5cWR90=",
+  "_integrity": "",
   "_location": "/react-native-baidu-map",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "react-native-baidu-map",
+    "type": "git",
+    "raw": "react-native-baidu-map@git+https://github.com/inhandnet/react-native-baidu-map.git",
     "name": "react-native-baidu-map",
     "escapedName": "react-native-baidu-map",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
+    "rawSpec": "git+https://github.com/inhandnet/react-native-baidu-map.git",
+    "saveSpec": "git+https://github.com/inhandnet/react-native-baidu-map.git",
+    "fetchSpec": "https://github.com/inhandnet/react-native-baidu-map.git",
+    "gitCommittish": null
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
-  "_resolved": "http://registry.npm.taobao.org/react-native-baidu-map/download/react-native-baidu-map-0.6.0.tgz",
+  "_resolved": "git+https://github.com/inhandnet/react-native-baidu-map.git#ad3f23741a2e565fe76b831601ef4dd1f3d1faad",
   "_shasum": "cb4937181e8e0cd2125d347a5b87ca13971647dd",
-  "_spec": "react-native-baidu-map",
+  "_spec": "react-native-baidu-map@git+https://github.com/inhandnet/react-native-baidu-map.git",
   "_where": "/Users/zhanglinfeimacair/workroom/coding/SmartFleet_App_Admin/SmartFleet_App_Admin",
   "author": {
     "name": "lovebing"

@@ -18,9 +18,15 @@
 //    NSLog(@"setZoom");
     self.zoomLevel = zoom;
 }
-
+- (void)setCenterDict:(NSDictionary *)centerDict{
+    NSLog(@"setCenterLatLng");
+    double lat = [RCTConvert double:centerDict[@"latitude"]];
+    double lng = [RCTConvert double:centerDict[@"longitude"]];
+    CLLocationCoordinate2D point = CLLocationCoordinate2DMake(lat, lng);
+    self.centerCoordinate = point;
+}
 -(void)setCenterLatLng:(NSDictionary *)LatLngObj {
-//    NSLog(@"setCenterLatLng");
+    NSLog(@"setCenterLatLng");
     double lat = [RCTConvert double:LatLngObj[@"lat"]];
     double lng = [RCTConvert double:LatLngObj[@"lng"]];
     CLLocationCoordinate2D point = CLLocationCoordinate2DMake(lat, lng);
@@ -37,6 +43,11 @@
         else {
             [self updateMarker:_annotation option:option];
         }
+        
+        [self removeAnnotations:self.annotations];
+        [self addAnnotations:@[_annotation]];
+        [self selectAnnotation:_annotation animated:YES];
+        [self showAnnotations:@[_annotation] animated:YES];
     }
 }
 -(void)setPolylines:(NSArray *)points{
@@ -128,7 +139,10 @@
 //                [_annotations removeObject:annotation];
 //            }
         }
-        [self showAnnotations:annotations animated:YES];
+        [self removeAnnotations:self.annotations];
+        [self addAnnotations:annotations];
+//        [self showAnnotations:annotations animated:YES];
+//        self.zoomLevel = self.zoomLevel -0.4;
     }
 }
 

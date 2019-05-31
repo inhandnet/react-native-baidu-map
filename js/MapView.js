@@ -20,6 +20,7 @@ export default class MapView extends Component {
     mapType: PropTypes.number,
     zoom: PropTypes.number,
     center: PropTypes.object,
+    centerDict: PropTypes.object,
     marker: PropTypes.object,
     markers: PropTypes.array,
     polylines: PropTypes.array,
@@ -44,6 +45,7 @@ export default class MapView extends Component {
     markers: [],
     polylines: [],
     center: null,
+    centerDict: null,
     zoom: 10
   };
 

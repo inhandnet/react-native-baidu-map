@@ -22,6 +22,12 @@ export default {
   setZoom(zoom) {
     console.warn('This method was deprecated, please use MapView prop instead');
   },
+  setCenter(center) {
+    console.warn('This method was deprecated, please use MapView prop instead');
+  },
+  setCenterDict(centerDict) {
+    console.warn('This method was deprecated, please use MapView prop instead');
+  },
   moveToCenter(lat, lng, zoom) {
     console.warn('This method was deprecated, please use MapView prop instead');
   },
